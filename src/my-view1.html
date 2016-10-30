@@ -1,0 +1,90 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-date-picker/paper-date-picker.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="shared-styles.html">
+
+
+
+<dom-module id="my-view1">
+
+    <template>
+        <style include="shared-styles iron-flex iron-flex-alignment">
+            :host {
+                display: block;
+
+                padding: 10px;
+                --paper-button-ink-color : pink;
+
+            }
+        </style>
+
+        <div class="card">
+            <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+                <h2>Selecione a data de viagem</h2>
+                <paper-date-picker id="picker" date="{{date}}" locale="pt-br" heading-format="ddd, D MMM Y"></paper-date-picker>
+                <div class="buttons">
+                    <paper-button dialog-dismiss>Cancel</paper-button>
+                    <paper-button dialog-confirm on-click="valor">OK</paper-button>
+                </div>
+            </paper-dialog>
+
+            <div class="layout horizontal">
+                <div>
+                    <paper-input label="Onde estou" value="{{ondeEstou}}"></paper-input>
+                </div>
+                <div>
+                    <paper-input label="Pra onde quero ir" value="{{ondeVou}}"></paper-input>
+                </div>
+            </div>
+            <div class="layout horizontal">
+                <div>
+                    <paper-input label="Data da viagem" value="{{date}}">
+                        <div prefix>
+                            <paper-icon-button src="../images/ic_date_range_black_24dp_1x.png" alt="octocat" title="octocat" on-click="openDatePicker">></paper-icon-button>
+                        </div>
+                    </paper-input>
+                </div>
+
+            </div>
+            <div class="layout horizontal end-justified">
+                <div class="">
+                    <paper-button raised>Pesquisar</paper-button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'my-view1',
+            properties:{
+                dataViagem:{
+                    type: String,
+                    value: 'teste'
+                }
+            },
+            openDatePicker : function () {
+                this.$.dialog.open()
+            },
+            valor : function () {
+                console.log(this.$.picker.date);
+            }
+        });
+    </script>
+</dom-module>
